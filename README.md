@@ -33,98 +33,6 @@ The CLI follows re-exports automatically — point it at your entry file and it 
 
 <!-- automd:docs4ts -->
 
-### `JSDocTag`
-
-```ts
-interface JSDocTag
-```
-
-Parsed JSDoc tag (e.g. `@param`, `@returns`, `@example`).
-
----
-
-### `JSDocEntry`
-
-```ts
-interface JSDocEntry
-```
-
-A single documented declaration extracted from source code.
-
----
-
-### `ExtractJSDocsOptions`
-
-```ts
-interface ExtractJSDocsOptions
-```
-
-Options for [`extractJSDocs`](#extractjsdocs).
-
----
-
-### `extractJSDocs`
-
-```ts
-function extractJSDocs(source: string, options?: ExtractJSDocsOptions): JSDocEntry[];
-```
-
-Extract JSDoc entries from TypeScript/JavaScript source code.
-
-Parses the source with `oxc-parser`, matches JSDoc block comments to
-their associated declarations by byte position, and returns structured entries.
-
-**Parameters:**
-
-- **`source`** — Source code string to parse
-- **`options`** — Parser options (filename hint, include private declarations)
-
-**Returns:** — Array of extracted JSDoc entries for documented declarations
-
-**Example:**
-
-```ts
-const entries = extractJSDocs(`
-  /** Add two numbers. *​/
-  export function add(a: number, b: number): number {
-    return a + b;
-  }
-`);
-// entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
-```
-
----
-
-### `parseJSDoc`
-
-```ts
-function parseJSDoc(raw: string):
-```
-
-Parse raw JSDoc comment content into description and tags.
-
-Expects the inner content of a `/** ... *​/` block (without the delimiters).
-Splits the comment into a leading description and structured `@tag` entries.
-
-**Parameters:**
-
-- **`raw`** — Raw JSDoc comment body (the text between `/**` and `*​/`)
-
-**Returns:** — Parsed description and array of tags
-
-**Example:**
-
-```ts
-const { description, tags } = parseJSDoc(`
-  * Add two numbers.
-  * @param a - First number
-  * @param b - Second number
-  * @returns The sum
-`);
-```
-
----
-
 ### `renderJSDocsMarkdown`
 
 ```ts
@@ -213,6 +121,98 @@ to collect documentation across the entire module graph.
 
 ```ts
 const entries = await loadJSDocs("src/index.ts");
+```
+
+---
+
+### `JSDocTag`
+
+```ts
+interface JSDocTag
+```
+
+Parsed JSDoc tag (e.g. `@param`, `@returns`, `@example`).
+
+---
+
+### `JSDocEntry`
+
+```ts
+interface JSDocEntry
+```
+
+A single documented declaration extracted from source code.
+
+---
+
+### `ExtractJSDocsOptions`
+
+```ts
+interface ExtractJSDocsOptions
+```
+
+Options for [`extractJSDocs`](#extractjsdocs).
+
+---
+
+### `extractJSDocs`
+
+```ts
+function extractJSDocs(source: string, options?: ExtractJSDocsOptions): JSDocEntry[];
+```
+
+Extract JSDoc entries from TypeScript/JavaScript source code.
+
+Parses the source with `oxc-parser`, matches JSDoc block comments to
+their associated declarations by byte position, and returns structured entries.
+
+**Parameters:**
+
+- **`source`** — Source code string to parse
+- **`options`** — Parser options (filename hint, include private declarations)
+
+**Returns:** — Array of extracted JSDoc entries for documented declarations
+
+**Example:**
+
+```ts
+const entries = extractJSDocs(`
+  /** Add two numbers. *​/
+  export function add(a: number, b: number): number {
+    return a + b;
+  }
+`);
+// entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
+```
+
+---
+
+### `parseJSDoc`
+
+```ts
+function parseJSDoc(raw: string):
+```
+
+Parse raw JSDoc comment content into description and tags.
+
+Expects the inner content of a `/** ... *​/` block (without the delimiters).
+Splits the comment into a leading description and structured `@tag` entries.
+
+**Parameters:**
+
+- **`raw`** — Raw JSDoc comment body (the text between `/**` and `*​/`)
+
+**Returns:** — Parsed description and array of tags
+
+**Example:**
+
+```ts
+const { description, tags } = parseJSDoc(`
+  * Add two numbers.
+  * @param a - First number
+  * @param b - Second number
+  * @returns The sum
+`);
 ```
 
 <!-- /automd -->
