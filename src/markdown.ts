@@ -10,6 +10,9 @@ import { extractJSDocs } from "./parser.ts";
  *
  * @param entries - JSDoc entries to render (from {@link extractJSDocs} or {@link loadJSDocs})
  * @returns Formatted Markdown string with `---` separators between sections
+ * @example
+ * const entries = await loadJSDocs("src/index.ts");
+ * const markdown = renderJSDocsMarkdown(entries);
  */
 export function renderJSDocsMarkdown(entries: JSDocEntry[]): string {
   const sections: string[] = [];
@@ -100,6 +103,13 @@ export function renderJSDocsMarkdown(entries: JSDocEntry[]): string {
  * @param source - Source code string to parse
  * @param options - Parser options (filename hint, include private declarations)
  * @returns Formatted Markdown documentation string
+ * @example
+ * const markdown = jsdocsToMarkdown(`
+ *   /** Greet someone. *​/
+ *   export function greet(name: string): string {
+ *     return "Hello, " + name;
+ *   }
+ * `);
  */
 export function jsdocsToMarkdown(source: string, options?: ExtractJSDocsOptions): string {
   const entries = extractJSDocs(source, options);

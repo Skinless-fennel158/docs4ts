@@ -31,23 +31,61 @@ The CLI follows re-exports automatically — point it at your entry file and it 
 
 ## Programmatic Usage
 
+<!-- automd:docs4ts -->
+
+### `JSDocTag`
+
 ```ts
-import {
-  extractJSDocs,
-  parseJSDoc,
-  renderJSDocsMarkdown,
-  jsdocsToMarkdown,
-  loadJSDocs,
-} from "docs4ts";
+interface JSDocTag
 ```
 
-### `extractJSDocs(source, options?)`
+Parsed JSDoc tag (e.g. `@param`, `@returns`, `@example`).
 
-Parse a single source string and return an array of `JSDocEntry` objects.
+---
+
+### `JSDocEntry`
+
+```ts
+interface JSDocEntry
+```
+
+A single documented declaration extracted from source code.
+
+---
+
+### `ExtractJSDocsOptions`
+
+```ts
+interface ExtractJSDocsOptions
+```
+
+Options for {@link extractJSDocs}.
+
+---
+
+### `extractJSDocs`
+
+```ts
+function extractJSDocs(source: string, options?: ExtractJSDocsOptions): JSDocEntry[];
+```
+
+Extract JSDoc entries from TypeScript/JavaScript source code.
+
+Parses the source with `oxc-parser`, matches JSDoc block comments to
+their associated declarations by byte position, and returns structured entries.
+
+**Parameters:**
+
+- **`source`** — Source code string to parse
+- **`options`** — Parser options (filename hint, include private declarations)
+
+**Returns:** — Array of extracted JSDoc entries for documented declarations
+
+**Example:**
 
 ```ts
 const entries = extractJSDocs(`
-  /** Add two numbers. */
+  /** Add two numbers. *​/
   export function add(a: number, b: number): number {
     return a + b;
   }
@@ -55,46 +93,26 @@ const entries = extractJSDocs(`
 // entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
 ```
 
-**Options:**
+---
 
-| Option           | Type      | Default      | Description                                 |
-| ---------------- | --------- | ------------ | ------------------------------------------- |
-| `filename`       | `string`  | `"input.ts"` | Filename hint for parser language detection |
-| `includePrivate` | `boolean` | `false`      | Include non-exported declarations           |
-
-### `loadJSDocs(file, options?)`
-
-Load JSDoc entries from a file, traversing all re-exported modules.
+### `parseJSDoc`
 
 ```ts
-const entries = await loadJSDocs("src/index.ts");
+function parseJSDoc(raw: string):
 ```
 
-### `renderJSDocsMarkdown(entries)`
+Parse raw JSDoc comment content into description and tags.
 
-Render an array of `JSDocEntry` objects as a Markdown string.
+Expects the inner content of a `/** ... *​/` block (without the delimiters).
+Splits the comment into a leading description and structured `@tag` entries.
 
-```ts
-const entries = await loadJSDocs("src/index.ts");
-const markdown = renderJSDocsMarkdown(entries);
-```
+**Parameters:**
 
-### `jsdocsToMarkdown(source, options?)`
+- **`raw`** — Raw JSDoc comment body (the text between `/**` and `*​/`)
 
-Parse source and render Markdown in one step.
+**Returns:** — Parsed description and array of tags
 
-```ts
-const markdown = jsdocsToMarkdown(`
-  /** Greet someone. */
-  export function greet(name: string): string {
-    return "Hello, " + name;
-  }
-`);
-```
-
-### `parseJSDoc(comment)`
-
-Parse a raw JSDoc comment string into structured description and tags.
+**Example:**
 
 ```ts
 const { description, tags } = parseJSDoc(`
@@ -104,6 +122,100 @@ const { description, tags } = parseJSDoc(`
   * @returns The sum
 `);
 ```
+
+---
+
+### `renderJSDocsMarkdown`
+
+```ts
+function renderJSDocsMarkdown(entries: JSDocEntry[]): string;
+```
+
+Render an array of JSDoc entries as formatted Markdown.
+
+Each entry becomes a `###` section with signature, description,
+parameters, return info, examples, and other tags.
+
+**Parameters:**
+
+- **`entries`** — JSDoc entries to render (from {@link extractJSDocs} or {@link loadJSDocs})
+
+**Returns:** — Formatted Markdown string with `---` separators between sections
+
+**Example:**
+
+```ts
+const entries = await loadJSDocs("src/index.ts");
+const markdown = renderJSDocsMarkdown(entries);
+```
+
+---
+
+### `jsdocsToMarkdown`
+
+```ts
+function jsdocsToMarkdown(source: string, options?: ExtractJSDocsOptions): string;
+```
+
+Extract JSDoc from TypeScript/JavaScript source and return Markdown.
+
+Convenience wrapper that combines {@link extractJSDocs} and {@link renderJSDocsMarkdown}.
+
+**Parameters:**
+
+- **`source`** — Source code string to parse
+- **`options`** — Parser options (filename hint, include private declarations)
+
+**Returns:** — Formatted Markdown documentation string
+
+**Example:**
+
+```ts
+const markdown = jsdocsToMarkdown(`
+  /** Greet someone. *​/
+  export function greet(name: string): string {
+    return "Hello, " + name;
+  }
+`);
+```
+
+---
+
+### `LoadJSDocsOptions`
+
+```ts
+interface LoadJSDocsOptions
+```
+
+Options for {@link loadJSDocs}.
+
+---
+
+### `loadJSDocs`
+
+```ts
+async function loadJSDocs(entry: string, options?: LoadJSDocsOptions): Promise<JSDocEntry[]>;
+```
+
+Load JSDoc entries from an entry file, traversing all re-exported modules.
+
+Starting from the given file, follows `export ... from` and `export *` statements
+to collect documentation across the entire module graph.
+
+**Parameters:**
+
+- **`entry`** — Path to the entry file to start from
+- **`options`** — Loader options (include private declarations)
+
+**Returns:** — Array of JSDoc entries collected from all traversed modules
+
+**Example:**
+
+```ts
+const entries = await loadJSDocs("src/index.ts");
+```
+
+<!-- /automd -->
 
 ## Types
 

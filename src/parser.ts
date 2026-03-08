@@ -45,6 +45,14 @@ export interface ExtractJSDocsOptions {
  * @param source - Source code string to parse
  * @param options - Parser options (filename hint, include private declarations)
  * @returns Array of extracted JSDoc entries for documented declarations
+ * @example
+ * const entries = extractJSDocs(`
+ *   /** Add two numbers. *​/
+ *   export function add(a: number, b: number): number {
+ *     return a + b;
+ *   }
+ * `);
+ * // entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
  */
 export function extractJSDocs(source: string, options?: ExtractJSDocsOptions): JSDocEntry[] {
   const filename = options?.filename ?? "input.ts";
@@ -211,6 +219,13 @@ export function extractJSDocs(source: string, options?: ExtractJSDocsOptions): J
  *
  * @param raw - Raw JSDoc comment body (the text between `/**` and `*​/`)
  * @returns Parsed description and array of tags
+ * @example
+ * const { description, tags } = parseJSDoc(`
+ *   * Add two numbers.
+ *   * @param a - First number
+ *   * @param b - Second number
+ *   * @returns The sum
+ * `);
  */
 export function parseJSDoc(raw: string): {
   description?: string;

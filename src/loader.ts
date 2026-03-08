@@ -19,6 +19,8 @@ export interface LoadJSDocsOptions {
  * @param entry - Path to the entry file to start from
  * @param options - Loader options (include private declarations)
  * @returns Array of JSDoc entries collected from all traversed modules
+ * @example
+ * const entries = await loadJSDocs("src/index.ts");
  */
 export async function loadJSDocs(
   entry: string,
