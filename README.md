@@ -1,9 +1,9 @@
-# js2md
+# docs4ts
 
 <!-- automd:badges color=yellow -->
 
-[![npm version](https://img.shields.io/npm/v/js2md?color=yellow)](https://npmjs.com/package/js2md)
-[![npm downloads](https://img.shields.io/npm/dm/js2md?color=yellow)](https://npm.chart.dev/js2md)
+[![npm version](https://img.shields.io/npm/v/docs4ts?color=yellow)](https://npmjs.com/package/docs4ts)
+[![npm downloads](https://img.shields.io/npm/dm/docs4ts?color=yellow)](https://npm.chart.dev/docs4ts)
 
 <!-- /automd -->
 
@@ -13,14 +13,14 @@ Extract JSDoc documentation from TypeScript/JavaScript source files and generate
 
 ```bash
 # Print markdown to stdout
-npx js2md src/index.ts
+npx docs4ts src/index.ts
 
 # Write to file
-npx js2md src/index.ts -o docs/api.md
+npx docs4ts src/index.ts -o docs/api.md
 ```
 
 ```
-Usage: js2md [options] <file>
+Usage: docs4ts [options] <file>
 
 Options:
   -o, --out <file>  Write output to file
@@ -38,7 +38,7 @@ import {
   renderJSDocsMarkdown,
   jsdocsToMarkdown,
   loadJSDocs,
-} from "js2md";
+} from "docs4ts";
 ```
 
 ### `extractJSDocs(source, options?)`
@@ -141,4 +141,4 @@ interface JSDocTag {
 
 ## License
 
-Published under the [MIT](https://github.com/pi0/js2md/blob/main/LICENSE) license.
+Published under the [MIT](https://github.com/pi0/docs4ts/blob/main/LICENSE) license.

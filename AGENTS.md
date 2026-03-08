@@ -1,4 +1,4 @@
-# js2md
+# docs4ts
 
 CLI tool and library that extracts JSDoc documentation from TypeScript/JavaScript source files and generates formatted Markdown.
 
@@ -7,7 +7,7 @@ CLI tool and library that extracts JSDoc documentation from TypeScript/JavaScrip
 ```
 src/
 ├── index.ts       # Public API exports
-├── cli.ts         # CLI entry point (`js2md <file> [-o out]`)
+├── cli.ts         # CLI entry point (`docs4ts <file> [-o out]`)
 ├── parser.ts      # JSDoc extraction & parsing (core logic)
 ├── loader.ts      # Module graph traversal & re-export resolution
 └── markdown.ts    # Markdown rendering
@@ -51,13 +51,13 @@ CLI / API
 
 ## Scripts
 
-| Command      | Description                               |
-| ------------ | ----------------------------------------- |
-| `pnpm dev`   | Vitest watch mode                         |
-| `pnpm test`  | Lint + typecheck + tests with coverage    |
-| `pnpm build` | Bundle with obuild                        |
-| `pnpm fmt`   | automd + oxlint --fix + oxfmt             |
-| `pnpm js2md` | Run CLI from source (`node ./src/cli.ts`) |
+| Command        | Description                               |
+| -------------- | ----------------------------------------- |
+| `pnpm dev`     | Vitest watch mode                         |
+| `pnpm test`    | Lint + typecheck + tests with coverage    |
+| `pnpm build`   | Bundle with obuild                        |
+| `pnpm fmt`     | automd + oxlint --fix + oxfmt             |
+| `pnpm docs4ts` | Run CLI from source (`node ./src/cli.ts`) |
 
 ## Dependencies
 

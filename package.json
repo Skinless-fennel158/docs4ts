@@ -1,11 +1,11 @@
 {
-  "name": "js2md",
+  "name": "docs4ts",
   "version": "0.0.1",
   "description": "",
   "license": "MIT",
-  "repository": "pi0/js2md",
+  "repository": "pi0/docs4ts",
   "bin": {
-    "js2md": "./dist/cli.mjs"
+    "docs4ts": "./dist/cli.mjs"
   },
   "files": [
     "dist"
@@ -22,7 +22,7 @@
     "fmt": "automd && oxlint . --fix && oxfmt .",
     "lint": "oxlint . && oxfmt --check .",
     "prepack": "pnpm build",
-    "js2md": "node ./src/cli.ts",
+    "docs4ts": "node ./src/cli.ts",
     "release": "pnpm test && pnpm build && changelogen --release && npm publish && git push --follow-tags",
     "test": "pnpm lint && pnpm typecheck && vitest run --coverage",
     "typecheck": "tsgo --noEmit --skipLibCheck"

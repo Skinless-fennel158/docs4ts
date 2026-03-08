@@ -14,7 +14,7 @@ const { values, positionals } = parseArgs({
 });
 
 if (values.help || positionals.length === 0) {
-  console.log("Usage: js2md [options] <file>");
+  console.log("Usage: docs4ts [options] <file>");
   console.log("");
   console.log("Options:");
   console.log("  -o, --out <file>  Write output to file");
