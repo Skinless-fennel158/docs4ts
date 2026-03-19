@@ -33,36 +33,6 @@ The CLI follows re-exports automatically — point it at your entry file and it 
 
 <!-- automd:docs4ts -->
 
-### `JSDocTag`
-
-```ts
-interface JSDocTag
-```
-
-Parsed JSDoc tag (e.g. `@param`, `@returns`, `@example`).
-
----
-
-### `JSDocEntry`
-
-```ts
-interface JSDocEntry
-```
-
-A single documented declaration extracted from source code.
-
----
-
-### `ExtractJSDocsOptions`
-
-```ts
-interface ExtractJSDocsOptions
-```
-
-Options for [`extractJSDocs`](#extractjsdocs).
-
----
-
 ### `extractJSDocs`
 
 ```ts
@@ -91,6 +61,62 @@ const entries = extractJSDocs(`
   }
 `);
 // entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
+```
+
+---
+
+### `jsdocsToMarkdown`
+
+```ts
+function jsdocsToMarkdown(source: string, options?: ExtractJSDocsOptions & RenderOptions): string;
+```
+
+Extract JSDoc from TypeScript/JavaScript source and return Markdown.
+
+Convenience wrapper that combines [`extractJSDocs`](#extractjsdocs) and [`renderJSDocsMarkdown`](#renderjsdocsmarkdown).
+
+**Parameters:**
+
+- **`source`** — Source code string to parse
+- **`options`** — Parser options (filename hint, include private declarations)
+
+**Returns:** — Formatted Markdown documentation string
+
+**Example:**
+
+```ts
+const markdown = jsdocsToMarkdown(`
+  /** Greet someone. *​/
+  export function greet(name: string): string {
+    return "Hello, " + name;
+  }
+`);
+```
+
+---
+
+### `loadJSDocs`
+
+```ts
+async function loadJSDocs(entry: string, options?: LoadJSDocsOptions): Promise<JSDocEntry[]>;
+```
+
+Load JSDoc entries from an entry file, traversing all re-exported modules.
+
+Starting from the given file, follows `export ... from` and `export *` statements
+to collect documentation across the entire module graph.
+
+**Parameters:**
+
+- **`entry`** — Path to the entry file to start from
+- **`options`** — Loader options (include private declarations)
+
+**Returns:** — Array of JSDoc entries collected from all traversed modules
+
+**Example:**
+
+```ts
+const entries = await loadJSDocs("src/index.ts");
 ```
 
 ---
@@ -128,7 +154,7 @@ const { description, tags } = parseJSDoc(`
 ### `renderJSDocsMarkdown`
 
 ```ts
-function renderJSDocsMarkdown(entries: JSDocEntry[]): string;
+function renderJSDocsMarkdown(entries: JSDocEntry[], options?: RenderOptions): string;
 ```
 
 Render an array of JSDoc entries as formatted Markdown.
@@ -139,6 +165,7 @@ parameters, return info, examples, and other tags.
 **Parameters:**
 
 - **`entries`** — JSDoc entries to render (from [`extractJSDocs`](#extractjsdocs) or [`loadJSDocs`](#loadjsdocs))
+- **`options`** — Render options (include interfaces)
 
 **Returns:** — Formatted Markdown string with `---` separators between sections
 
@@ -151,69 +178,13 @@ const markdown = renderJSDocsMarkdown(entries);
 
 ---
 
-### `jsdocsToMarkdown`
+### `sortEntries`
 
 ```ts
-function jsdocsToMarkdown(source: string, options?: ExtractJSDocsOptions): string;
+function sortEntries(entries: JSDocEntry[]): JSDocEntry[];
 ```
 
-Extract JSDoc from TypeScript/JavaScript source and return Markdown.
-
-Convenience wrapper that combines [`extractJSDocs`](#extractjsdocs) and [`renderJSDocsMarkdown`](#renderjsdocsmarkdown).
-
-**Parameters:**
-
-- **`source`** — Source code string to parse
-- **`options`** — Parser options (filename hint, include private declarations)
-
-**Returns:** — Formatted Markdown documentation string
-
-**Example:**
-
-```ts
-const markdown = jsdocsToMarkdown(`
-  /** Greet someone. *​/
-  export function greet(name: string): string {
-    return "Hello, " + name;
-  }
-`);
-```
-
----
-
-### `LoadJSDocsOptions`
-
-```ts
-interface LoadJSDocsOptions
-```
-
-Options for [`loadJSDocs`](#loadjsdocs).
-
----
-
-### `loadJSDocs`
-
-```ts
-async function loadJSDocs(entry: string, options?: LoadJSDocsOptions): Promise<JSDocEntry[]>;
-```
-
-Load JSDoc entries from an entry file, traversing all re-exported modules.
-
-Starting from the given file, follows `export ... from` and `export *` statements
-to collect documentation across the entire module graph.
-
-**Parameters:**
-
-- **`entry`** — Path to the entry file to start from
-- **`options`** — Loader options (include private declarations)
-
-**Returns:** — Array of JSDoc entries collected from all traversed modules
-
-**Example:**
-
-```ts
-const entries = await loadJSDocs("src/index.ts");
-```
+Sort entries alphabetically, with interfaces grouped at the end.
 
 <!-- /automd -->
 
