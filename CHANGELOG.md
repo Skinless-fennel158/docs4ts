@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/pi0/docs4ts/compare/v0.0.3...v0.0.4)
+
+### 🚀 Enhancements
+
+- Predictable order ([d691318](https://github.com/pi0/docs4ts/commit/d691318))
+
+### 🏡 Chore
+
+- Apply automated updates ([781196b](https://github.com/pi0/docs4ts/commit/781196b))
+
+### ❤️ Contributors
+
+- Pooya Parsa ([@pi0](https://github.com/pi0))
+
 ## v0.0.3
 
 [compare changes](https://github.com/pi0/docs4ts/compare/v0.0.2...v0.0.3)
